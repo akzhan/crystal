@@ -156,11 +156,9 @@ class StringPool
   end
 
   private def hash(str, len)
-    h = 0
-    str.to_slice(len).each do |c|
-      h = 31 * h + c
-    end
-    h
+    hasher = Crystal::Hasher.new
+    hasher = str.to_slice(len).hash(hasher)
+    hasher.result
   end
 
   private def calculate_new_size(size)
